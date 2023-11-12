@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 帖子点赞接口
@@ -59,6 +60,10 @@ public class QuestionSubmitController {
         // 登录才能提交
         final User loginUser = userService.getLoginUser(request);
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        CompletableFuture.runAsync(()->{
+
+        });
+
         return ResultUtils.success(questionSubmitId);
     }
 

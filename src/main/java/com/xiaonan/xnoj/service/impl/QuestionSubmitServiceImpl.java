@@ -14,6 +14,7 @@ import com.xiaonan.xnoj.model.entity.QuestionSubmit;
 import com.xiaonan.xnoj.model.entity.User;
 import com.xiaonan.xnoj.model.enums.QuestionSubmitLanguageEnum;
 import com.xiaonan.xnoj.model.enums.QuestionSubmitStatusEnum;
+import com.xiaonan.xnoj.model.vo.LoginUserVO;
 import com.xiaonan.xnoj.model.vo.QuestionSubmitVO;
 import com.xiaonan.xnoj.model.vo.QuestionVO;
 import com.xiaonan.xnoj.model.vo.UserVO;
@@ -129,7 +130,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if(questionSubmit.getUserId() != userId && !userService.isAdmin(loginUser)){
             questionSubmitVO.setCode(null);
         }
-
+        Long submitVOUserId = questionSubmitVO.getUserId();
+        User submitUser = userService.getById(submitVOUserId);
+        UserVO userVO = userService.getUserVO(submitUser);
+        questionSubmitVO.setUserVO(userVO);
         return questionSubmitVO;
     }
 
