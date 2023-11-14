@@ -60,6 +60,7 @@ public class QuestionSubmitController {
         // 登录才能提交
         final User loginUser = userService.getLoginUser(request);
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        // 开启线程池异步提交处理
         CompletableFuture.runAsync(()->{
 
         });

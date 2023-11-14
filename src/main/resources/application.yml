@@ -90,3 +90,5 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
+codeSandBox:
+  type: example
