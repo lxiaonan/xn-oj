@@ -33,7 +33,10 @@ public class QuestionEditRequest implements Serializable {
      * 标签列表（json 数组）
      */
     private List<String> tags;
-
+    /**
+     * 题目难度 简单1 中等3 困难5
+     */
+    private Integer rate;
     /**
      * 题目答案
      */

@@ -1,6 +1,5 @@
 package com.xiaonan.xnoj.judge.codesandbox.model;
 
-import com.xiaonan.xnoj.model.dto.questionsubmit.JudgeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +18,7 @@ public class CodeExecuteResponse {
      */
     private String message;
     /**
-     * 判题状态
+     * 判题状态 0成功 1部分正确 2失败
      */
     private Integer status;
     /**

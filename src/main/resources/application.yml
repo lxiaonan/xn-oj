@@ -91,4 +91,4 @@ cos:
     region: xxx
     bucket: xxx
 codeSandBox:
-  type: example
+  type: native

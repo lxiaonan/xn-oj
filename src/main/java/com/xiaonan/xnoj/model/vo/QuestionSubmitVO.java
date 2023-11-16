@@ -5,15 +5,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.google.gson.Gson;
-import com.xiaonan.xnoj.model.dto.question.JudgeConfig;
-import com.xiaonan.xnoj.model.dto.questionsubmit.JudgeInfo;
+import com.xiaonan.xnoj.judge.codesandbox.model.JudgeInfo;
 import com.xiaonan.xnoj.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 题目提交封装类  专门返回给前端使用的

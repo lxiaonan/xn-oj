@@ -75,7 +75,10 @@ public class Question implements Serializable {
      * 创建用户 id
      */
     private Long userId;
-
+    /**
+     * 题目难度 简单1 中等3 困难5
+     */
+    private Integer rate;
     /**
      * 创建时间
      */

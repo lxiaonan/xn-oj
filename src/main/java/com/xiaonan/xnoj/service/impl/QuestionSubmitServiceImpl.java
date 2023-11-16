@@ -60,7 +60,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return 题目id
      */
     @Override
-    public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
+    public QuestionSubmit doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
         Long questionId = questionSubmitAddRequest.getQuestionId();
         // 判断实体是否存在，根据类别获取实体
         Question question = questionService.getById(questionId);
@@ -78,18 +78,15 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);
         BeanUtils.copyProperties(questionSubmitAddRequest,questionSubmit);
-//        questionSubmit.setCode(questionSubmitAddRequest.getCode());
-//        questionSubmit.setQuestionId(questionId);
-//        questionSubmit.setLanguage(questionSubmitAddRequest.getLanguage());
         questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());//判题状态，需要使用枚举类比较优雅
         questionSubmit.setJudgeInfo("{}");
         questionSubmit.setCreateTime(new Date());
         questionSubmit.setUpdateTime(new Date());
         boolean save = save(questionSubmit);
         if(!save){
-            throw new BusinessException(ErrorCode.OPERATION_ERROR,"新增题目异常");
+            throw new BusinessException(ErrorCode.OPERATION_ERROR,"题目提交异常");
         }
-        return questionSubmit.getId();
+        return questionSubmit;
     }
     /**
      * 获取查询包装类

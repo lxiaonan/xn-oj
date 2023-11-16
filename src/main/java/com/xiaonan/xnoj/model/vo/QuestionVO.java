@@ -67,7 +67,10 @@ public class QuestionVO implements Serializable {
      * 点赞数
      */
     private Integer thumbNum;
-
+    /**
+     * 题目难度 简单1 中等3 困难5
+     */
+    private Integer rate;
     /**
      * 收藏数
      */

@@ -1,20 +1,24 @@
 package com.xiaonan.xnoj.controller;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaonan.xnoj.annotation.AuthCheck;
 import com.xiaonan.xnoj.common.BaseResponse;
 import com.xiaonan.xnoj.common.ErrorCode;
 import com.xiaonan.xnoj.common.ResultUtils;
-import com.xiaonan.xnoj.constant.UserConstant;
 import com.xiaonan.xnoj.exception.BusinessException;
 import com.xiaonan.xnoj.exception.ThrowUtils;
-import com.xiaonan.xnoj.model.dto.question.QuestionQueryRequest;
+import com.xiaonan.xnoj.judge.JudgeService;
+import com.xiaonan.xnoj.judge.codesandbox.model.CodeExecuteRequest;
+import com.xiaonan.xnoj.model.dto.question.JudgeCase;
 import com.xiaonan.xnoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.xiaonan.xnoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.xiaonan.xnoj.model.entity.Question;
 import com.xiaonan.xnoj.model.entity.QuestionSubmit;
 import com.xiaonan.xnoj.model.entity.User;
 import com.xiaonan.xnoj.model.vo.QuestionSubmitVO;
+import com.xiaonan.xnoj.service.QuestionService;
 import com.xiaonan.xnoj.service.QuestionSubmitService;
 import com.xiaonan.xnoj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -43,6 +48,10 @@ public class QuestionSubmitController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private JudgeService judgeService;
+    @Resource
+    QuestionService questionService;
 
     /**
      * 题目提交
@@ -59,13 +68,14 @@ public class QuestionSubmitController {
         }
         // 登录才能提交
         final User loginUser = userService.getLoginUser(request);
-        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        QuestionSubmit questionSubmit = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         // 开启线程池异步提交处理
         CompletableFuture.runAsync(()->{
-
+            //调用判题模块
+            judgeService.doJudge(questionSubmit);
         });
 
-        return ResultUtils.success(questionSubmitId);
+        return ResultUtils.success(questionSubmit.getId());
     }
 
     /**

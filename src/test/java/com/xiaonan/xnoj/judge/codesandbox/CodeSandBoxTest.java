@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -45,5 +47,15 @@ class CodeSandBoxTest {
         System.out.println(codeExecuteResponse);
     }
 
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("1 2");
+        list.add(null);
+        list.add("1 2");
+        list.add(null);
+        list.add("1 2");
+        list.add("1 2");
+        System.out.println(list);
+    }
 
 }

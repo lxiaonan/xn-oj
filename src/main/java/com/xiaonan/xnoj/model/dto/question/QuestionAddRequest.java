@@ -34,7 +34,10 @@ public class QuestionAddRequest implements Serializable {
      * 题目答案
      */
     private String answer;
-
+    /**
+     * 题目难度 简单1 中等3 困难5
+     */
+    private Integer rate;
 
     /**
      * 判题用例 可能有多组
